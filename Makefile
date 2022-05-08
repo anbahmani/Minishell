@@ -4,8 +4,11 @@ CC          	=   gcc
 
 SRC_DIR			= 	$(shell find srcs -type d)
 INC_DIR			= 	$(shell find includes -type d) \
+					$(shell find lib/libft -type d) \
 
 OBJ_DIR			=	obj
+
+LIB_DIR			=	lib/libft
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
@@ -23,6 +26,15 @@ IFLAGS		=	$(foreach dir, $(INC_DIR), -I $(dir))
 
 # main part ---------------------------------------------------------
 
+install:
+	@$(foreach dir, $(LIB_DIR), make -C $(dir) bonus;)
+
+re-install:
+	@$(foreach dir, $(LIB_DIR), make -C $(dir) re;)
+
+fclean-install:
+	@make -C lib/libft fclean
+
 all:
 	@echo "\n___$(NAME) Setting___\n"
 	@make  $(NAME)
@@ -39,7 +51,7 @@ show:
 	@echo "\n-----\n"
 	@echo "Compiling : \n$(CC) $(CFLAGS) $(OBJ) -o $(NAME)"
 
-$(NAME): $(OBJ)
+$(NAME): install $(OBJ)
 	@echo "-----\nCreating Binary File $@ ... \c"
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "DONE\n-----"
