@@ -14,7 +14,17 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 # library -----------------------------------------------------------
 
-SRC			= 	main.c
+SRC			= 	main.c \
+				parsing.c \
+				built_cd.c \
+				built_echo.c \
+				built_in.c  \
+				built_pwd.c \
+				built_env.c \
+				built_export.c \
+				ft_strlen_split.c \
+				exec.c \
+				ft_strcmp.c \
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
