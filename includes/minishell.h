@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:14:29 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/09 10:22:51 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 06:13:49 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,26 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-typedef enum e_identifier{
-	PIPE,
-	COMMAND,
+typedef enum e_redirection{
 	LEFT_SIMPLE_REDIRECTION,
 	RIGHT_SIMPLE_REDIRECTION,
 	RIGHT_DOUBLE_REDIRECTION,
 	LEFT_DOUBLE_REDIRECTION,
-	SEMICOLON
-}	t_identifier;
+	OTHER
+}	t_redirection;
+
+typedef struct s_redir_data
+{
+	t_redirection	redir;
+	char			*file;
+}	t_redir_data;
+
 
 typedef struct s_token
 {
-	t_identifier	id;
-	char			*option;
-	char			**input;
-	struct s_token	*next;
+	char			*cmd;
+	char			*args;
+	t_list			**l_redir;
 }	t_token;
 
 typedef struct s_data t_data;
@@ -67,7 +71,7 @@ struct                  s_pipex
 /*                       FILE = ./src/parsing/parsing.c                       */
 /* -------------------------------------------------------------------------- */
 int     pipex(char **str);
-int     parser(char **envp, t_data *data, char **split);
+
 char    **find_path(char **envp);
 char    **complet_path(char **split);
 int ftt_strchr(const char *s, int c);
@@ -83,5 +87,18 @@ int	exec_cmd(t_data *data, char **envp);
 /* -------------------------------------------------------------------------- */
 /*                            FILE = ./src/main.c                             */
 /* -------------------------------------------------------------------------- */
+
+
+
+
+void	parser(char *prompt, t_list **l_env);
+
+/*------------------------------UTILS-----------------------------------------*/
+
+bool			is_redirection(char c);
+void			free_char_tab(char **s);
+t_redirection	str_to_redir(char *str);
+char			*get_char_without_quote(char *str);
+void			add_char(char **str, char c);
 
 #endif

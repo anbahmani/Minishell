@@ -6,13 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 18:55:18 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/09 10:08:54 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:46:29 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	dup_envp(t_data *data, char **envp)
+/* int	dup_envp(t_data *data, char **envp)
 {
 	int	i;
 
@@ -26,17 +26,37 @@ int	dup_envp(t_data *data, char **envp)
 		i++;
 	}
 	return (1);
+} */
+
+static t_list	*env_to_lst(char **env)
+{
+	int		i;
+	t_list	*lst;
+
+	i = 1;
+	if (env[0])
+	{
+		lst = ft_lstnew(env[0]);
+		while (env[i])
+		{
+			ft_lstadd_back(&lst, ft_lstnew(env[i]));
+			i++;
+		}
+		return (lst);
+	}
+	return (NULL);
 }
 
 int main(int argc, char **argv, char **envp)
 {
-		t_data *data;
-		char *prompt;
+		t_data	*data;
+		char 	*prompt;
+		t_list	*l_env;
 
 		(void)argc;
 		(void)argv;
-		data = malloc(sizeof(t_data));
-		dup_envp(data, envp);
+		//data = malloc(sizeof(t_data));
+		l_env = env_to_lst(envp);
 		while (1)
 		{   
 				prompt = readline("minishell$> ");
