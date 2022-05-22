@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 18:55:18 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/21 16:46:29 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 12:35:29 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static t_list	*env_to_lst(char **env)
 	i = 1;
 	if (env[0])
 	{
-		lst = ft_lstnew(env[0]);
+		lst = ft_lstnew(ft_strdup(env[0]));
 		while (env[i])
 		{
-			ft_lstadd_back(&lst, ft_lstnew(env[i]));
+			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(env[i])));
 			i++;
 		}
 		return (lst);

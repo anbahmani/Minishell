@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:44:19 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 05:59:57 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:13:34 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	add_redirection_lst(int i, char *str ,t_list **lst)
 	tmp = ft_substr(str, i, 1 + (str[i + 1] && is_redirection(str[i + 1])));
 	redir = str_to_redir(tmp);
 	free(tmp);
-	count = 1 + (str[i + 1] && is_redirection(str[i + 1]);
+	count = 1 + (str[i + 1] && is_redirection(str[i + 1]));
 	while (str[i + count] && str[i + count] == ' ')
 		count++;
 	start = count;

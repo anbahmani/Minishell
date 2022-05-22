@@ -4,6 +4,14 @@
 		"string.h": "c",
 		"history.h": "c",
 		"readline.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"array": "c",
+		"*.tcc": "c",
+		"memory": "c",
+		"istream": "c",
+		"ranges": "c",
+		"functional": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 }

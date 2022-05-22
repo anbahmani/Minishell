@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:14:29 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 06:13:49 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:03:52 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	exec_cmd(t_data *data, char **envp);
 
 
 void	parser(char *prompt, t_list **l_env);
+char	*get_env_var_in_str(char *str, int *i);
+void	parse_str_inside_double_quote(char *str, int *i, char **res);
 
 /*------------------------------UTILS-----------------------------------------*/
 

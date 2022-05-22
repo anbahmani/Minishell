@@ -6,33 +6,34 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 04:40:01 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 06:24:58 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:03:42 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*parse_str_inside_double_quote(char *str, int i)
+void	parse_str_inside_double_quote(char *str, int *i, char **res)
 {
-	char	*res;
-	int		j;
-	
-	j = 1;
-	res = malloc(sizeof(char) * 1);
-	if (!res)
-		return (NULL);
-	res[0] = '\0';
-	while(str[i + j] != "\"")
+	char	*tmp;
+	char	*env_var_value;
+	int		k;
+
+	while (str[(*i)] != "\"")
 	{
-		if (str[i + j] == "$" && str[i + j + 1] != ' '
-			&& str[i + j + 1] != '\"')
+		if (str[(*i)] == "$" && str[(*i) + 1] != ' '
+			&& str[(*i) + 1] != '\"')
 		{
-			// get the env var value and add it in res string
+			k = i;
+			tmp = res;
+			env_var_value = get_env_var_in_str(str, &k);
+			res = ft_strjoin((const char *)res, (const char *)env_var_value);
+			free(tmp);
+			free(env_var_value);
 		}
 		else
 		{
-			add_char(&res, str[[i + j]]);
-			j++;
+			add_char(&res, str[(*i)]);
+			(*i)++;
 		}
 	}
 }

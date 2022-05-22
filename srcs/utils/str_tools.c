@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 18:46:45 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 05:59:29 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:03:26 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*get_char_without_quote(char *str)
 
 	i = 0;
 	j = 0;
-	res = NULL;
+	res = ft_strdup("");
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
@@ -78,9 +78,8 @@ char	*get_char_without_quote(char *str)
 					free(res);
 				return (NULL);
 			}
-			quote = str[i];
-			while (str[++i] != quote)
-				//get str between simple or double quotes
+			quote = str[i++];
+			parse_str_inside_double_quote(str, &i, res);
 		}
 		else {
 			add_char(&str, str[i]);
