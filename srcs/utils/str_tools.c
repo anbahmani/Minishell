@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 18:46:45 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 17:03:26 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/06/30 12:03:32 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	add_char(char **str, char c)
 	new = malloc(sizeof(char) * (ft_strlen(*str) + 1));
 	i = 0;
 	if (!new)
-		return (NULL);
+		return ;
 	while (*str[i])
 	{
 		new[i] = *str[i];
@@ -58,32 +58,32 @@ static bool	find_second_quote(char quote, char *str, int i)
 	return (false);
 }
 
-char	*get_char_without_quote(char *str)
+char	*get_char_without_quote(char *str, int *i)
 {
-	int		i;
 	int		j;
 	char	*res;
 	char	quote;
 
-	i = 0;
-	j = 0;
+	j = *i;
 	res = ft_strdup("");
-	while (str[i])
+	while (str[j])
 	{
-		if (str[i] == '\"' || str[i] == '\'')
+		if (str[j] == '\"' || str[j] == '\'')
 		{
-			if (!find_second_quote(str[i], str, i))
+			if (!find_second_quote(str[j], str, j))
 			{
 				if (res)
 					free(res);
 				return (NULL);
 			}
-			quote = str[i++];
-			parse_str_inside_double_quote(str, &i, res);
+			quote = str[j++];
+			parse_str_inside_quote(str, &j, &res, quote);
 		}
-		else {
-			add_char(&str, str[i]);
-			i++;
+		else 
+		{
+			add_char(&str, str[j]);
+			j++;
 		}
 	}
+	return (str);
 }

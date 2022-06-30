@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abahmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 14:49:32 by abahmani          #+#    #+#              #
-#    Updated: 2021/01/23 13:33:49 by abahmani         ###   ########.fr        #
+#    Updated: 2022/06/29 02:40:07 by abahmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,15 +42,16 @@ RM				=	rm -f
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
+		@echo "compiling libft" 
 		ar -rcs ${NAME} ${OBJS}
 
 bonus:	${OBJS} ${OBJSBONUS}
+		@echo "compiling libft bonus"
 		ar -rcs ${NAME} ${OBJS} ${OBJSBONUS}
 
-all:		${NAME}
-
-clean:			
-	${RM} ${OBJS} ${OBJSBONUS}
+clean:
+	@echo "cleaning libft"
+	@${RM} ${OBJS} ${OBJSBONUS}
 
 fclean:		clean			
 		${RM} ${NAME}

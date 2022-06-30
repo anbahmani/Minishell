@@ -8,22 +8,22 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat May 21 14:57:54 2022
+# Make data base, printed on Wed Jun 29 22:25:11 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
 # environment
+ 
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# makefile (from `Makefile', line 29)
+# makefile (from `Makefile', line 40)
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
-# makefile (from `Makefile', line 17)
-SRC = main.c parsing.c built_cd.c built_echo.c built_in.c built_pwd.c built_env.c built_export.c ft_strlen_split.c exec.c ft_strcmp.c 
-# makefile (from `Makefile', line 35)
+# makefile (from `Makefile', line 19)
+SRC = main.c parsing.c parser.c ft_strcmp.c env_var.c inside_quote.c syntax_error.c char_tools.c free_element.c lst_tools.c str_tools.c 
+# makefile (from `Makefile', line 46)
 IFLAGS = $(foreach dir, $(INC_DIR), -I $(dir))
 # environment
 VSCODE_LOG_NATIVE = false
@@ -38,11 +38,11 @@ CURDIR := /Users/anisbahmani/Desktop/42/projets/minishell
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"25fe6a3290ec415596628d4afc87a88c.fr","_translationsConfigFile":"/Users/anisbahmani/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/tcf.json","_cacheRoot":"/Users/anisbahmani/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr","_resolvedLanguagePackCoreLocation":"/Users/anisbahmani/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/da15b6fd3ef856477bf6f4fb29ba1b7af717770d","_corruptedFile":"/Users/anisbahmani/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"575d78304484aa5fa0cbb32d34fd883d.fr","_translationsConfigFile":"/Users/anisbahmani/Library/Application Support/Code/clp/575d78304484aa5fa0cbb32d34fd883d.fr/tcf.json","_cacheRoot":"/Users/anisbahmani/Library/Application Support/Code/clp/575d78304484aa5fa0cbb32d34fd883d.fr","_resolvedLanguagePackCoreLocation":"/Users/anisbahmani/Library/Application Support/Code/clp/575d78304484aa5fa0cbb32d34fd883d.fr/30d9c6cd9483b2cc586687151bcbcd635f373630","_corruptedFile":"/Users/anisbahmani/Library/Application Support/Code/clp/575d78304484aa5fa0cbb32d34fd883d.fr/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 33)
-CFLAGS = -Wall -Wextra -Werror -pthread 
+# makefile (from `Makefile', line 44)
+CFLAGS = -Wall -Wextra -Werror 
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # makefile (from `Makefile', line 11)
@@ -56,9 +56,9 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/yz/j_jsdsxd7fl51f6xbhmw6h0w0000gn/T/vscode-ipc-22a2b093-e8b7-4eee-bb05-2bcc8d4f0853.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/yz/j_jsdsxd7fl51f6xbhmw6h0w0000gn/T/vscode-ipc-d643463b-f9f6-4af9-9d29-a2782afbfc98.sock
 # environment
-VSCODE_CWD = /Users/anisbahmani
+VSCODE_CWD = /Users/anisbahmani/Desktop/42/projets
 # environment
 PATH = /Users/anisbahmani/.jbang/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/anisbahmani/javacc-5.0/bin
 # environment
@@ -67,10 +67,12 @@ LSCOLORS = Gxfxcxdxbxegedabagacad
 VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
+# makefile (from `Makefile', line 17)
+LIB = ft
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.OeNNmaWaIp/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.culebypuye/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -94,7 +96,7 @@ MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/anisbahmani/Library/Application Support/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+VSCODE_CODE_CACHE_PATH = /Users/anisbahmani/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LOGNAME = anisbahmani
 # environment
@@ -122,18 +124,19 @@ MAKE_VERSION := 3.81
 # environment
 USER = anisbahmani
 # makefile
-.DEFAULT_GOAL := install
+.DEFAULT_GOAL := all
 # default
- 
 MAKECMDGOALS := all
 # environment
-TERM_SESSION_ID = w0t0p0:1E410F9F-84B8-4D78-B300-9217375F0674
+TERM_SESSION_ID = w0t0p0:42201AE4-71A3-471F-99A8-6BB8EEF21C13
 # makefile (from `Makefile', line 1)
 NAME = minishell
 # environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
+# makefile (from `Makefile', line 48)
+LFLAGS = $(foreach dir, $(LIB_DIR), -L $(dir)) $(foreach lib, $(LIB), -l $(lib))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # environment
@@ -145,7 +148,7 @@ TMPDIR = /var/folders/yz/j_jsdsxd7fl51f6xbhmw6h0w0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/anisbahmani/Library/Application Support/Code/1.67.1-main.sock
+VSCODE_IPC_HOOK = /Users/anisbahmani/Library/Application Support/Code/1.68.1-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -155,7 +158,7 @@ MFLAGS = -Rrqp
 # environment
 TERM_PROGRAM_VERSION = 3.4.15
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.25348168.25348174.20979E85-8F32-464F-A5EC-FC2EA0A5B5BF
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.31916999.31917005.003EF216-0775-4907-8708-B56B30674D67
 # environment
 LC_TERMINAL_VERSION = 3.4.15
 # environment
@@ -165,7 +168,7 @@ HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t0p0:1E410F9F-84B8-4D78-B300-9217375F0674
+ITERM_SESSION_ID = w0t0p0:42201AE4-71A3-471F-99A8-6BB8EEF21C13
 # environment
 HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
@@ -199,9 +202,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 1104
+VSCODE_PID = 2983
 # variable set hash-table stats:
-# Load=93/1024=9%, Rehash=0, Collisions=7/129=5%
+# Load=95/1024=9%, Rehash=0, Collisions=7/131=5%
 
 # Pattern-specific Variable Values
 
@@ -209,19 +212,21 @@ VSCODE_PID = 1104
 
 # Directories
 
-# . (device 16777234, inode 24515414): 10 files, no impossibilities.
-# srcs/executor (device 16777234, inode 24518468): No files, no impossibilities so far.
-# srcs/utils (device 16777234, inode 25486969): No files, no impossibilities so far.
-# srcs/built_in (device 16777234, inode 25485504): No files, no impossibilities so far.
-# srcs (device 16777234, inode 24518451): No files, no impossibilities so far.
-# srcs/parser (device 16777234, inode 24518464): No files, no impossibilities so far.
+# . (device 16777233, inode 24515414): 11 files, no impossibilities.
+# srcs/error.c (device 16777233, inode 31988632): No files, no impossibilities so far.
+# srcs/executor (device 16777233, inode 24518468): No files, no impossibilities so far.
+# srcs/utils (device 16777233, inode 25486969): No files, no impossibilities so far.
+# srcs/built_in (device 16777233, inode 25485504): No files, no impossibilities so far.
+# srcs (device 16777233, inode 24518451): No files, no impossibilities so far.
+# srcs/parser (device 16777233, inode 24518464): No files, no impossibilities so far.
 
-# 10 files, no impossibilities in 6 directories.
+# 11 files, no impossibilities in 7 directories.
 
 # Implicit Rules
 
 obj/%.o: %.c
-#  commands to execute (from `Makefile', line 70):
+#  commands to execute (from `Makefile', line 72):
+ 
 	@echo "Compiling $@ ... \c"
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<
@@ -236,12 +241,24 @@ re-install:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 43):
+#  commands to execute (from `Makefile', line 61):
 	@$(foreach dir, $(LIB_DIR), make -C $(dir) re;)
 	
 
 # Not a target:
 obj/ft_strcmp.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/parser.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/free_element.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -272,7 +289,7 @@ all:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/12=8%
-#  commands to execute (from `Makefile', line 49):
+#  commands to execute (from `Makefile', line 54):
 	@echo "\n___$(NAME) Setting___\n"
 	@make  $(NAME)
 	
@@ -289,20 +306,19 @@ flcean:
 #  File has not been updated.
 
 # Not a target:
+obj/inside_quote.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 obj/main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
- 
 .SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/built_cd.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -310,7 +326,7 @@ obj/built_cd.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 10:22:22
+#  Last modified 2022-06-29 08:53:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -322,50 +338,52 @@ obj/parsing.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: install obj/main.o obj/parsing.o obj/built_cd.o obj/built_echo.o obj/built_in.o obj/built_pwd.o obj/built_env.o obj/built_export.o obj/ft_strlen_split.o obj/exec.o obj/ft_strcmp.o
+minishell: install obj/main.o obj/parsing.o obj/parser.o obj/ft_strcmp.o obj/env_var.o obj/inside_quote.o obj/syntax_error.o obj/char_tools.o obj/free_element.o obj/lst_tools.o obj/str_tools.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 65):
+#  commands to execute (from `Makefile', line 67):
 	@echo "-----\nCreating Binary File $@ ... \c"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME) -lreadline
 	@echo "DONE\n-----"
 	
 
-bonus: fclean
+# Not a target:
+obj/env_var.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+bonus:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 53):
-	@echo "\n___$(NAME) Setting___\n"
-	@make $(NAME_BONUS)
-	
-
-# Not a target:
-obj/built_in.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
 #  File has not been updated.
 
 fclean: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 83):
+#  commands to execute (from `Makefile', line 85):
 	@echo "Deleting Binary File $(NAME) ... \c"
 	@rm -f $(NAME)
 	@echo "DONE\n-----"
 	
 
 # Not a target:
-obj/built_echo.o:
+obj/str_tools.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-obj/built_export.o:
+obj/lst_tools.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/char_tools.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -387,7 +405,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 78):
+#  commands to execute (from `Makefile', line 80):
 	@echo "Deleting Objects Directory $(OBJ_DIR) ... \c"
 	@$(foreach file, $(OBJ), rm -rf $(file))
 	@echo "DONE\n-----"
@@ -398,23 +416,9 @@ show:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 57):
-	@echo "SRC :\n$(SRC)"
-	@echo "OBJ :\n$(OBJ)"
-	@echo "CFLAGS :\n$(CFLAGS)"
-	@echo "IFLAGS :\n$(IFLAGS)"
-	@echo "\n-----\n"
-	@echo "Compiling : \n$(CC) $(CFLAGS) $(OBJ) -o $(NAME)"
-	
 
 # Not a target:
-obj/exec.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/built_env.o:
+obj/syntax_error.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -423,35 +427,23 @@ fclean-install:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 46):
+#  commands to execute (from `Makefile', line 64):
 	@make -C lib/libft fclean
 	
-
-# Not a target:
-obj/built_pwd.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/ft_strlen_split.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 install:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 40):
+#  commands to execute (from `Makefile', line 58):
 	@$(foreach dir, $(LIB_DIR), make -C $(dir) bonus;)
 	
 
 # files hash-table stats:
-# Load=26/1024=3%, Rehash=0, Collisions=0/62=0%
+# Load=26/1024=3%, Rehash=0, Collisions=0/61=0%
 # VPATH Search Paths
 
-vpath %.c srcs:srcs/utils:srcs/parser:srcs/built_in:srcs/executor
+vpath %.c srcs:srcs/utils:srcs/parser:srcs/built_in:srcs/error.c:srcs/executor
 
 # 1 `vpath' search paths.
 
@@ -462,7 +454,6 @@ vpath %.c srcs:srcs/utils:srcs/parser:srcs/built_in:srcs/executor
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
- 
-# Finished Make data base on Sat May 21 14:57:54 2022
+# Finished Make data base on Wed Jun 29 22:25:11 2022
 
  

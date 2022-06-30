@@ -14,27 +14,45 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 # library -----------------------------------------------------------
 
+LIB			=	ft
+
 SRC			= 	main.c \
 				parsing.c \
-				built_cd.c \
-				built_echo.c \
-				built_in.c  \
-				built_pwd.c \
-				built_env.c \
-				built_export.c \
-				ft_strlen_split.c \
-				exec.c \
+				parser.c \
 				ft_strcmp.c \
+				env_var.c \
+				inside_quote.c \
+				syntax_error.c \
+				char_tools.c \
+				free_element.c \
+				lst_tools.c \
+				str_tools.c \
+#				exec.c \
+#				built_cd.c \
+#				built_echo.c \
+#				built_in.c  \
+#				built_pwd.c \
+#				built_env.c \
+#				built_export.c \
+#				ft_strlen_split.c \
+#				parsing.c \
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 # Compilation flags -------------------------------------------------
 
-CFLAGS		=	-Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
+CFLAGS		=	-Wall -Wextra -Werror #-g3 -fsanitize=thread
 
 IFLAGS		=	$(foreach dir, $(INC_DIR), -I $(dir))
 
+LFLAGS		=	$(foreach dir, $(LIB_DIR), -L $(dir)) \
+				$(foreach lib, $(LIB), -l $(lib))
+
 # main part ---------------------------------------------------------
+
+all:
+	@echo "\n___$(NAME) Setting___\n"
+	@make  $(NAME)
 
 install:
 	@$(foreach dir, $(LIB_DIR), make -C $(dir) bonus;)
@@ -45,25 +63,9 @@ re-install:
 fclean-install:
 	@make -C lib/libft fclean
 
-all:
-	@echo "\n___$(NAME) Setting___\n"
-	@make  $(NAME)
-
-bonus: fclean
-	@echo "\n___$(NAME) Setting___\n"
-	@make $(NAME_BONUS)
-
-show:
-	@echo "SRC :\n$(SRC)"
-	@echo "OBJ :\n$(OBJ)"
-	@echo "CFLAGS :\n$(CFLAGS)"
-	@echo "IFLAGS :\n$(IFLAGS)"
-	@echo "\n-----\n"
-	@echo "Compiling : \n$(CC) $(CFLAGS) $(OBJ) -o $(NAME)"
-
 $(NAME): install $(OBJ)
 	@echo "-----\nCreating Binary File $@ ... \c"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME) -lreadline
 	@echo "DONE\n-----"
 
 $(OBJ_DIR)/%.o : %.c

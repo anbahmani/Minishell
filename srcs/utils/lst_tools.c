@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 12:24:47 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 12:39:32 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/06/29 01:39:25 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ char	**lst_to_tab_str(t_list **lst)
 	}
 	tab[i] = NULL;
 	ft_lstclear(lst, &free);
+	return (tab);
 }

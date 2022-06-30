@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:47:01 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/09 10:05:42 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:56:37 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,6 @@ char *get_path(char **path, char *cmd)
 		i++;    
 	}
 	return (NULL);
-}
-
-int parser(char **envp, t_data *data, char **split)
-{
-	int i;
-	char *cmd;
-	int     res;
-	
-	data->path = find_path(envp);
-	i = 0;
-	while (data->split_line[i])
-	{
-		while ((ft_strcmp(data->split_line[i], "") == 0))
-			i++;
-		cmd = get_path(data->path, split[0]);
-		if (cmd == NULL)
-		{
-			printf("pas bon\n");
-			exit(0);
-		}
-		res = execve(cmd, split, envp);
-		if (res == -1)
-		{
-			write(2, "bash: ", ft_strlen("bash: "));
-			write(2, cmd, ft_strlen(cmd));
-			perror("");
-		}
-	}
-	return (1);
 }
 
 int pipex(char **str)

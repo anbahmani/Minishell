@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:14:29 by abahmani          #+#    #+#             */
-/*   Updated: 2022/05/22 17:03:52 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:52:01 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+extern int	g_last_return_code;
+
 typedef enum e_redirection{
 	LEFT_SIMPLE_REDIRECTION,
 	RIGHT_SIMPLE_REDIRECTION,
@@ -41,7 +43,6 @@ typedef struct s_redir_data
 	char			*file;
 }	t_redir_data;
 
-
 typedef struct s_token
 {
 	char			*cmd;
@@ -50,13 +51,13 @@ typedef struct s_token
 }	t_token;
 
 typedef struct s_data t_data;
-struct                  s_data{
-    char **path;
-    char *readline;
-    char **split_line;
-    char **split_tmp;
-    int pipefd[2];
-    char    **env_tmp;
+struct	s_data{
+    char	**path;
+    char	*readline;
+    char	**split_line;
+    char	**split_tmp;
+    int		pipefd[2];
+    char	**env_tmp;
 };
 
 /*
@@ -71,36 +72,39 @@ struct                  s_pipex
 /*                       FILE = ./src/parsing/parsing.c                       */
 /* -------------------------------------------------------------------------- */
 int     pipex(char **str);
-
 char    **find_path(char **envp);
 char    **complet_path(char **split);
-int ftt_strchr(const char *s, int c);
-int verif_char(char **split);
-int    built_cd(char **envp, char *str);
-int built_echo(t_data *data);
-int is_built_in(t_data *data, char **envp);
-int built_pwd(void);
-int built_env(char **envp);
-int built_export(char **split_line, char **envp);
-int ft_strlen_split(char **split);
-int	exec_cmd(t_data *data, char **envp);
+int		ftt_strchr(const char *s, int c);
+int		verif_char(char **split);
+int		built_cd(char **envp, char *str);
+int		built_echo(t_data *data);
+int		is_built_in(t_data *data, char **envp);
+int		built_pwd(void);
+int		built_env(char **envp);
+int		built_export(char **split_line, char **envp);
+int		ft_strlen_split(char **split);
+int		exec_cmd(t_data *data, char **envp);
 /* -------------------------------------------------------------------------- */
 /*                            FILE = ./src/main.c                             */
 /* -------------------------------------------------------------------------- */
 
-
-
-
-void	parser(char *prompt, t_list **l_env);
+t_list	*parser(char *prompt, t_list **l_env);
 char	*get_env_var_in_str(char *str, int *i);
-void	parse_str_inside_double_quote(char *str, int *i, char **res);
+void	parse_str_inside_quote(char *str, int *i, char **res,
+			char quote);
 
 /*------------------------------UTILS-----------------------------------------*/
 
 bool			is_redirection(char c);
 void			free_char_tab(char **s);
 t_redirection	str_to_redir(char *str);
-char			*get_char_without_quote(char *str);
+char			*get_str_without_quote(char *str, int *i);
 void			add_char(char **str, char c);
+void			free_token_lst(t_list **l_token);
+int				ft_strcmp(char *s1, char *s2);
+
+/*------------------------------ERROR-----------------------------------------*/
+
+void			unclosed_quote();
 
 #endif
